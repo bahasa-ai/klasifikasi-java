@@ -14,27 +14,15 @@ public class Model {
     this.tags = tags;
   }
 
-  public String getName() {
-    return name;
-  }
+  public String getName() { return name; }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  public void setName(String name) { this.name = name; }
 
-  public String getPublicId() {
-    return publicId;
-  }
+  public String getPublicId() { return publicId; }
 
-  public void setPublicId(String publicId) {
-    this.publicId = publicId;
-  }
+  public void setPublicId(String publicId) { this.publicId = publicId; }
 
-  public Tag[] getTags() {
-    return tags;
-  }
+  public Tag[] getTags() { return tags; }
 
-  public void setTags(Tag[] tags) {
-    this.tags = tags;
-  }
+  public void setTags(Tag[] tags) { this.tags = tags; }
 }

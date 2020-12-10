@@ -6,11 +6,7 @@ public enum RequestMethod {
 
   private String text;
 
-  RequestMethod(String text) {
-    this.text = text;
-  }
+  RequestMethod(String text) { this.text = text; }
 
-  public String getText() {
-    return this.text;
-  }
+  public String getText() { return this.text; }
 }

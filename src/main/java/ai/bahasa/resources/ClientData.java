@@ -2,7 +2,6 @@ package ai.bahasa.resources;
 
 public class ClientData {
 
-
   Token auth;
 
   Model model;
@@ -11,20 +10,11 @@ public class ClientData {
     this.model = model;
   }
 
+  public Token getAuth() { return auth; }
 
-  public Token getAuth() {
-    return auth;
-  }
+  public void setAuth(Token auth) { this.auth = auth; }
 
-  public void setAuth(Token auth) {
-    this.auth = auth;
-  }
+  public Model getModel() { return model; }
 
-  public Model getModel() {
-    return model;
-  }
-
-  public void setModel(Model model) {
-    this.model = model;
-  }
+  public void setModel(Model model) { this.model = model; }
 }
