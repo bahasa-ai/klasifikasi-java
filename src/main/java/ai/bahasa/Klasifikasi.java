@@ -63,6 +63,10 @@ public class Klasifikasi {
   public ClassifyResponse classify(String publicId, String query) throws Exception {
 
     ClientData clientData = this.modelMapping.get(publicId);
+    if (clientData == null) {
+      throw new Exception(String.format("Model not found ! (%s)", publicId));
+    }
+
     Map<String, String> headers = new HashMap<>();
     headers.put("Authorization", String.format("Bearer %s", clientData.getAuth().getToken()));
 
