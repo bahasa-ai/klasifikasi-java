@@ -59,4 +59,20 @@ public class Klasifikasi {
   }
 
   public Map<String, ClientData> getModels() { return modelMapping; }
+
+  public ClassifyResponse classify(String publicId, String query) throws Exception {
+
+    ClientData clientData = this.modelMapping.get(publicId);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Authorization", String.format("Bearer %s", clientData.getAuth().getToken()));
+
+    Map<String, String> body = new HashMap<>();
+    body.put("query", query);
+
+    String classifyUrl = String.format("%s/api/v1/classify/%s", url, publicId);
+    ClassifyResponse response = requestClient.request(RequestMethod.POST, classifyUrl, headers, null, body, ClassifyResponse.class);
+
+    return response;
+  }
+
 }
