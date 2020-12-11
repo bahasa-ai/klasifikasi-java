@@ -51,7 +51,7 @@ public class Klasifikasi {
                                   null, null, ClientModel.class);
 
         modelMapping.put(model.getModel().getPublicId(),
-                         new ClientData(auth.getAuth(), model.getModel()));
+                         new ClientData(auth.getAuth(), model.getModel(), data));
       }
 
       instance = new Klasifikasi(modelMapping);
@@ -70,7 +70,7 @@ public class Klasifikasi {
     }
 
     Map<String, String> headers = new HashMap<>();
-    headers.put("Authorization", String.format("Bearer %s", clientData.getAuth().getToken()));
+    headers.put("Authorization", String.format("Bearer %s", getActiveToken(clientData)));
 
     Map<String, String> body = new HashMap<>();
     body.put("query", query);
@@ -93,7 +93,7 @@ public class Klasifikasi {
     }
 
     Map<String, String> headers = new HashMap<>();
-    headers.put("Authorization", String.format("Bearer %s", clientData.getAuth().getToken()));
+    headers.put("Authorization", String.format("Bearer %s", getActiveToken(clientData)));
 
     Map<String, String> queryParams = new HashMap<>();
     queryParams.put("startedAt", startedAt.toInstant().toString());
@@ -106,4 +106,19 @@ public class Klasifikasi {
     return response;
   }
 
+  private String getActiveToken(ClientData clientData) throws Exception {
+    Date now = new Date();
+    if (now.before(new Date(clientData.getAuth().getExpiredAfter()))) {
+      Map<String, String> body = new HashMap<>();
+      body.put("clientId", clientData.getBuildParams().getClientId());
+      body.put("clientSecret", clientData.getBuildParams().getClientSecret());
+
+      String requestTokenUrl = String.format("%s/api/v1/auth/token", url);
+      ClientAuth auth = requestClient.request(RequestMethod.POST, requestTokenUrl, null, null, body, ClientAuth.class);
+
+      clientData.setAuth(auth.getAuth());
+
+    }
+    return clientData.getAuth().getToken();
+  }
 }
