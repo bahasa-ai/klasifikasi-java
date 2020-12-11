@@ -2,7 +2,6 @@ package ai.bahasa;
 
 import ai.bahasa.resources.*;
 import ai.bahasa.util.Request;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,8 +49,9 @@ public class Klasifikasi {
             requestClient.request(RequestMethod.GET, activeClienturl, headers,
                                   null, null, ClientModel.class);
 
-        modelMapping.put(model.getModel().getPublicId(),
-                         new ClientData(auth.getAuth(), model.getModel(), data));
+        modelMapping.put(
+            model.getModel().getPublicId(),
+            new ClientData(auth.getAuth(), model.getModel(), data));
       }
 
       instance = new Klasifikasi(modelMapping);
@@ -62,7 +62,8 @@ public class Klasifikasi {
 
   public Map<String, ClientData> getModels() { return modelMapping; }
 
-  public ClassifyResponse classify(String publicId, String query) throws Exception {
+  public ClassifyResponse classify(String publicId, String query)
+      throws Exception {
 
     ClientData clientData = this.modelMapping.get(publicId);
     if (clientData == null) {
@@ -70,18 +71,22 @@ public class Klasifikasi {
     }
 
     Map<String, String> headers = new HashMap<>();
-    headers.put("Authorization", String.format("Bearer %s", getActiveToken(clientData)));
+    headers.put("Authorization",
+                String.format("Bearer %s", getActiveToken(clientData)));
 
     Map<String, String> body = new HashMap<>();
     body.put("query", query);
 
     String classifyUrl = String.format("%s/api/v1/classify/%s", url, publicId);
-    ClassifyResponse response = requestClient.request(RequestMethod.POST, classifyUrl, headers, null, body, ClassifyResponse.class);
+    ClassifyResponse response =
+        requestClient.request(RequestMethod.POST, classifyUrl, headers, null,
+                              body, ClassifyResponse.class);
 
     return response;
   }
 
-  public LogsResponse logs(String publicId, Date startedAt, Date endedAt, int skip, int take) throws Exception {
+  public LogsResponse logs(String publicId, Date startedAt, Date endedAt,
+                           int skip, int take) throws Exception {
 
     ClientData clientData = this.modelMapping.get(publicId);
     if (clientData == null) {
@@ -93,7 +98,8 @@ public class Klasifikasi {
     }
 
     Map<String, String> headers = new HashMap<>();
-    headers.put("Authorization", String.format("Bearer %s", getActiveToken(clientData)));
+    headers.put("Authorization",
+                String.format("Bearer %s", getActiveToken(clientData)));
 
     Map<String, String> queryParams = new HashMap<>();
     queryParams.put("startedAt", startedAt.toInstant().toString());
@@ -102,7 +108,9 @@ public class Klasifikasi {
     queryParams.put("take", String.format("%d", take));
 
     String getLogsUrl = String.format("%s/api/v1/history/%s", url, publicId);
-    LogsResponse response = requestClient.request(RequestMethod.GET, getLogsUrl, headers, queryParams, null, LogsResponse.class);
+    LogsResponse response =
+        requestClient.request(RequestMethod.GET, getLogsUrl, headers,
+                              queryParams, null, LogsResponse.class);
     return response;
   }
 
@@ -114,10 +122,11 @@ public class Klasifikasi {
       body.put("clientSecret", clientData.getBuildParams().getClientSecret());
 
       String requestTokenUrl = String.format("%s/api/v1/auth/token", url);
-      ClientAuth auth = requestClient.request(RequestMethod.POST, requestTokenUrl, null, null, body, ClientAuth.class);
+      ClientAuth auth =
+          requestClient.request(RequestMethod.POST, requestTokenUrl, null, null,
+                                body, ClientAuth.class);
 
       clientData.setAuth(auth.getAuth());
-
     }
     return clientData.getAuth().getToken();
   }

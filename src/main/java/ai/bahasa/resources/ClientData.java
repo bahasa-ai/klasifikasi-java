@@ -19,9 +19,7 @@ public class ClientData {
     this.model = model;
   }
 
-  public BuildParams getBuildParams() {
-    return buildParams;
-  }
+  public BuildParams getBuildParams() { return buildParams; }
 
   public void setBuildParams(BuildParams buildParams) {
     this.buildParams = buildParams;
