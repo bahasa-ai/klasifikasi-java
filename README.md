@@ -5,7 +5,9 @@ Official [Klasifikasi](https://klasifikasi.com/) API Client Library
 ## Installation
 
 #### Gradle
+
 Add these lines in your `build.gradle`
+
 ```
 repositories {
     ...
@@ -22,7 +24,9 @@ dependencies {
 ```
 
 #### Maven
+
 Add these lines in your `pom.xml`
+
 ```xml
 <dependency>
     <groupId>ai.bahasa</groupId>
@@ -67,6 +71,7 @@ Klasifikasi klasifikasi = Klasifikasi.build(new BuildParams[]{
 });
 
 ```
+
 You can pass multiple `clientId` & `clientSecret` too
 
 ```java
@@ -79,7 +84,10 @@ Klasifikasi klasifikasi = Klasifikasi.build(new BuildParams[]{
 ```
 
 ## Classify
-You will need you model `publicId` to start classifying with your model. You can get your model `publicId` from your model page, or you can get it from here :
+
+You will need you model `publicId` to start classifying with your model. You can
+get your model `publicId` from your model page, or you can get it from here :
+
 ```java
 
 Map<String, ClientData> models = klasifikasi.getModels();
@@ -89,6 +97,7 @@ for (Map.Entry<String, ClientData> data : models.entrySet()) {
 ```
 
 Classifying example
+
 ```java
 ClassifyResponse response = klasifikasi.classify("publicId", "Query");
 TagScore[] tagScores = response.getTagScores();
@@ -104,7 +113,9 @@ for (TagScore data : tagScores) {
 ```
 
 ## Logs
+
 You can get your classifying logs based on your model `publicId`
+
 ```java
 SimpleDateFormat formater = new SimpleDateFormat("d MMMM yyyy");
 Date startedAt = formater.parse("10 December 2020");
@@ -129,5 +140,5 @@ Output :
 
 ## Error
 
-All the function above will throw an Exception if something bad happen. Always run
-each function inside `try` & `catch` block
+All the function above will throw an Exception if something bad happen. Always
+run each function inside `try` & `catch` block
