@@ -1,12 +1,29 @@
 plugins {
     id 'java'
+    id "com.jfrog.bintray" version "1.8.1"
+    id "maven-publish"
 }
 
-group 'ai.bahasa'
-version '1.0-SNAPSHOT'
+ext {
+    license = 'MIT'
+    licenseUrl = 'https://opensource.org/licenses/MIT'
+
+    developerId = 'zesagata'
+    developerName = 'ZE Sagata'
+    developerEmail = 'saga@bahasa.ai'
+
+    siteUrl = 'https://github.com/bahasa-ai/klasifikasi-java'
+
+    shortDescription = 'Official [Klasifikasi](https://klasifikasi.com/) API Client Library'
+    libName = 'klasifikasi-java'
+
+    version = '0.0.1'
+}
 
 repositories {
     mavenCentral()
+    mavenLocal()
+    jcenter()
 }
 
 dependencies {
@@ -17,4 +34,71 @@ dependencies {
 }
 test {
     useJUnitPlatform()
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+
+publishing {
+    publications {
+        mavenPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar {
+                archiveClassifier.set("sources")
+            }
+            groupId 'ai.bahasa'
+            artifactId 'klasifikasi-java'
+            version '0.0.1'
+            pom {
+                name = libName
+                description = shortDescription
+                url = siteUrl
+                licenses {
+                    license {
+                        name = license
+                        url = licenseUrl
+                    }
+                }
+                developers {
+                    developer {
+                        id = developerId
+                        name = developerName
+                        email = developerEmail
+                    }
+                }
+
+                scm {
+                    url = siteUrl
+                }
+            }
+        }
+    }
+}
+
+
+bintray {
+    user = System.getProperty('bintray.user')
+    key = System.getProperty('bintray.key')
+    publications = ['mavenPublication']
+
+    pkg {
+        repo = 'klasifikasi'
+        name = 'klasifikasi-java'
+        vcsUrl = siteUrl
+        userOrg = 'bahasa-ai'
+        version {
+            name = version
+            desc = version
+            licenses = [license]
+            released  = new Date()
+        }
+    }
+
 }
