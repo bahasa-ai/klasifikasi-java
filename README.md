@@ -2,6 +2,60 @@
 
 Official [Klasifikasi](https://klasifikasi.com/) API Client Library
 
+## Installation
+
+#### Gradle
+Add these lines in your `build.gradle`
+```
+repositories {
+    ...
+    maven {
+        url "https://dl.bintray.com/bahasa-ai/klasifikasi"
+    }
+}
+
+dependencies {
+    ...
+    implementation 'ai.bahasa:klasifikasi-java:0.0.1'
+}
+
+```
+
+#### Maven
+Add these lines in your `pom.xml`
+```xml
+<dependency>
+    <groupId>ai.bahasa</groupId>
+    <artifactId>klasifikasi-java</artifactId>
+    <version>0.0.1</version>
+    <type>pom</type>
+</dependency>
+
+
+<repositories>
+    <repository>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <id>bintray-bahasa-ai-klasifikasi</id>
+        <name>bintray</name>
+        <url>https://dl.bintray.com/bahasa-ai/klasifikasi</url>
+    </repository>
+</repositories>
+<pluginRepositories>
+    <pluginRepository>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <id>bintray-bahasa-ai-klasifikasi</id>
+        <name>bintray-plugins</name>
+        <url>https://dl.bintray.com/bahasa-ai/klasifikasi</url>
+    </pluginRepository>
+</pluginRepositories>
+<id>bintray</id>
+
+```
+
 ## Quick Start
 
 You will need valid `clientId` & `clientSecret` of your model. You can get those
