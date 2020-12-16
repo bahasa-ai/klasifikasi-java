@@ -2,6 +2,10 @@
 
 Official [Klasifikasi](https://klasifikasi.com/) API Client Library
 
+## Requirement
+
+JDK 15 or later
+
 ## Installation
 
 #### Gradle
